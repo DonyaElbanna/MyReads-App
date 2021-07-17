@@ -9,12 +9,21 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  componentDidMount () {
+  getBooks() {
     BooksAPI.getAll()
-    .then((books) => {
-      this.setState(() => ({
-        books
-      }))
+    .then((books) => {this.setState({books})
+    })
+  }
+
+  componentDidMount () {
+    this.getBooks()
+  }
+
+  //moveShelf func is inside main comp to be invoked here to alter the state
+  moveShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+    .then(() => {
+      this.getBooks()
     })
   }
 
@@ -23,6 +32,7 @@ class BooksApp extends React.Component {
       <div className="app">
         <MainPage 
           books={this.state.books}
+          moveShelf={this.moveShelf}
         />
       </div>
     )
