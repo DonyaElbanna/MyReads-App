@@ -4,20 +4,22 @@ import React, { Component } from 'react'
 class Book extends Component {
     render() {
 
-      let bookCover = this.props.book.imageLinks ?
-      this.props.book.imageLinks.thumbnail :
-      '';
+        let bookCover = this.props.book.imageLinks ?
+            this.props.book.imageLinks.thumbnail :
+            '';
 
         return (
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 192,
-                         backgroundImage: `url('${bookCover}')` }}></div>
+                    <div className="book-cover" style={{
+                        width: 128, height: 192,
+                        backgroundImage: `url('${bookCover}')`
+                    }}></div>
                     <div className="book-shelf-changer">
                         <select
-                          onChange = {(event) => this.props.moveShelf(
-                              this.props.book, event.target.value)}
-                              value={this.props.book.shelf}>
+                            onChange={(event) => this.props.moveShelf(
+                                this.props.book, event.target.value)}
+                            value={this.props.shelf}>
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
