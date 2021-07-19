@@ -10,20 +10,31 @@ class SearchPage extends Component {
     }
 
     updateQuery = (query) => {
-        this.setState({ query: query })
+        this.setState({ query })
         this.displayBooks(query);
     }
 
     displayBooks = (query) => {
-        BooksAPI.search(query).then((displayedBooks) => {
-
-            if (displayedBooks.error) {
-                this.setState({ displayedBooks: [] })
-            } else {
-                this.setState({ displayedBooks: displayedBooks })
+        if (query.length !==0) {
+            BooksAPI.search(query).then((displayedBooks) => {
+                /*
+                * The nested "if" covers the case of an error.
+                * For example, if I type something that returns no result,
+                * the resulting object will still have to be an array
+                * otherwise the app will crash when the .map() method
+                * will be run. 
+                */
+                if (displayedBooks.error) {
+                    this.setState({ displayedBooks: [] })
+                } else {
+                    this.setState({ displayedBooks: displayedBooks })
+                    // console.log(matchedBooks);
+                }
             }
+            )
+        } else {
+            this.setState ({ displayedBooks: [] })
         }
-        )
     }
     render() {
         return (
