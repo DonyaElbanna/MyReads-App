@@ -17,7 +17,7 @@ class SearchPage extends Component {
 
     updateQuery = query => {
         this.setState({ query })
-        this.displayBooks(query);
+        this.displayBooks(query)
     }
 
 
@@ -27,22 +27,23 @@ class SearchPage extends Component {
             BooksAPI.search(query).then((displayedBooks) => {
 
                 if (displayedBooks.error) {
-                    
+
                     this.setState({ displayedBooks: [] })
+
                 } else {
                     this.setState({ displayedBooks: displayedBooks })
                 }
             }
             )
         } else {
-            this.setState ({ displayedBooks: [] })
-            
+            this.setState({ displayedBooks: [] })
+
         }
     }
     render() {
 
-        const {query} = this.state
-        const {books, moveBook} = this.props
+        const { query, displayedBooks } = this.state
+        const { books, moveBook } = this.props
 
         return (
             <div className="search-books">
@@ -60,9 +61,9 @@ class SearchPage extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    
+
                     <ol className="books-grid">
-                        {this.state.displayedBooks.map(displayedBook => {
+                        {displayedBooks.map(displayedBook => {
                             let shelf = 'none'
                             books.forEach(book => {
                                 if (book.id === displayedBook.id) {
@@ -73,7 +74,7 @@ class SearchPage extends Component {
                             })
 
                             return (
-                                
+
                                 <li key={displayedBook.id}>
                                     <Book
                                         book={displayedBook}
@@ -85,10 +86,10 @@ class SearchPage extends Component {
                         })}
                     </ol>
                 </div>
-               
+
             </div>
 
-            
+
         )
     }
 }
