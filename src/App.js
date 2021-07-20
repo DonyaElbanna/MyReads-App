@@ -21,8 +21,8 @@ class BooksApp extends React.Component {
     this.getBooks()
   }
 
-  //moveShelf func is inside main comp to be invoked here to alter the state
-  moveShelf = (movedBook, newShelf) => {
+  //moveBook func is inside main comp to be invoked here to alter the state
+  moveBook = (movedBook, newShelf) => {
     BooksAPI.update(movedBook, newShelf)
       .then(() => {
         this.getBooks()
@@ -30,18 +30,20 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const {books} = this.state
+
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           <MainPage
-            books={this.state.books}
-            moveShelf={this.moveShelf}
+            books={books}
+            moveBook={this.moveBook}
           />
         )} />
         <Route path='/search' render={() => (
           <SearchPage
-            books={this.state.books}
-            moveShelf={this.moveShelf}
+            books={books}
+            moveBook={this.moveBook}
           />
         )} />
       </div>

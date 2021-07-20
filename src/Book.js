@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types'
 
 class Book extends Component {
+    static propTypes = {
+            book: PropTypes.object.isRequired,
+            moveBook: PropTypes.func.isRequired
+    }
+
     render() {
 
-        let bookCover = this.props.book.imageLinks ?
-            this.props.book.imageLinks.thumbnail :
+        const {book, shelf, moveBook} = this.props
+
+        let bookCover = book.imageLinks ?
+        book.imageLinks.thumbnail :
             '';
 
         return (
+
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{
@@ -17,9 +25,10 @@ class Book extends Component {
                     }}></div>
                     <div className="book-shelf-changer">
                         <select
-                            onChange={(event) => this.props.moveShelf(
-                                this.props.book, event.target.value)}
-                            value={this.props.shelf}>
+                            value={shelf}
+                            onChange={(event) => moveBook(book, event.target.value)}
+                            >
+
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
@@ -28,8 +37,8 @@ class Book extends Component {
                         </select>
                     </div>
                 </div>
-                <div className="book-title">{this.props.book.title}</div>
-                <div className="book-authors">{this.props.book.authors}</div>
+                <div className="book-title">{book.title}</div>
+                <div className="book-authors">{book.authors}</div>
             </div>
         )
     }
