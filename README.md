@@ -32,7 +32,10 @@ To get started:
 
 ### Demo
 
+Home Page
 ![Home page](demo/home.png)
+
+Search Page
 ![Search page](demo/search.png)
 
 ### Credits:
